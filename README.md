@@ -23,9 +23,7 @@ text-driven approach.
 The solution is fully compatible with the
 [TalkingHead](https://github.com/met4citizen/TalkingHead).
 It doesn't have any external dependencies, and it is
-MIT licensed.
-
-[HeadTTS](https://github.com/met4citizen/HeadTTS),
+MIT licensed. [HeadTTS](https://github.com/met4citizen/HeadTTS),
 [webpack](https://github.com/webpack/webpack),
 and [jest](https://jestjs.io) were used during
 development, training, and testing.
@@ -35,7 +33,7 @@ versions of Chrome, Edge, Firefox, and Safari desktop
 browsers, as well as on iPad/iPhone.
 
 > [!IMPORTANT]
-> The model's accuracy will hopefully improve over time.
+> The model's accuracy might improve over time.
 However, since all audio processing occurs fully in-browser
 and in real time, it will never be perfect and may not be
 suitable for all use cases. Some precision will always need
@@ -47,8 +45,8 @@ to be sacrificed to stay within the real-time processing budget.
 
 App | Description
 --- | ---
-<span style="display: block; min-width:400px">[<img src="images/openai.jpg" width="400"/>](https://met4citizen.github.io/HeadAudio/openai.html)</span> | A demo web app using HeadAudio, [TalkingHead](https://github.com/met4citizen/TalkingHead), and [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) (WebRTC). It supports speech-to-speech, moods, hand gestures, and facial expressions through function calling. \[[Run](https://met4citizen.github.io/HeadAudio/openai.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/openai.html)]<br/><br/>Note: The app uses OpenAI's [gpt-realtime-mini](https://platform.openai.com/docs/models/gpt-realtime-mini) model and requires an OpenAI API key. The “mini” model is a cost-effective version of GPT Realtime, but still relatively expensive for extended use.
-[<img src="images/tester.jpg" width="400"/>](https://met4citizen.github.io/HeadAudio/tester.html) | A test app for HeadAudio that lets you experiment with audio-stream processing and various parameters using [HeadTTS](https://met4citizen.github.io/HeadTTS) (in-browser neural text-to-speech engine), your own audio file(s), or microphone input. \[[Run](https://met4citizen.github.io/HeadAudio/tester.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/tester.html)]
+[<img src="images/openai.jpg" width="200"/>](https://met4citizen.github.io/HeadAudio/openai.html) | A demo web app using HeadAudio, [TalkingHead](https://github.com/met4citizen/TalkingHead), and [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) (WebRTC). It supports speech-to-speech, moods, hand gestures, and facial expressions through function calling. \[[Run](https://met4citizen.github.io/HeadAudio/openai.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/openai.html)]<br/><br/>Note: The app uses OpenAI's [gpt-realtime-2.1-mini](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) model and requires an **Ephemeral OpenAI API key**. The "mini" model is a cost-effective version of GPT Realtime, but still relatively expensive for extended use.
+[<img src="images/tester.jpg" width="200"/>](https://met4citizen.github.io/HeadAudio/tester.html) $$\color{transparent}{\rule{200px}{0px}}$$ | A test app for HeadAudio that lets you experiment with audio-stream processing and various parameters using [HeadTTS](https://met4citizen.github.io/HeadTTS) (in-browser neural text-to-speech engine), your own audio file(s), or microphone input. \[[Run](https://met4citizen.github.io/HeadAudio/tester.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/tester.html)]
 
 ---
 
@@ -72,15 +70,15 @@ or a CDN build.
 prototypes, e.g., `"./dist/model-en-mixed.bin"`.
 
 5. Connect your speech audio node to the HeadAudio node.
-The node node has a single mono input and does not output
+The node has a single mono input and does not output
 any audio.
 
 6. Optional: To compensate for processing latency (50–100 ms),
 add delay to your speech-audio path using the browser's standard
 [DelayNode](https://developer.mozilla.org/en-US/docs/Web/API/DelayNode).
 
-7. Assing `onvalue` callback function `(key, value)`
-that updates your avatar's blend shape `key` (Oculus viseme name, e.g, "viseme_aa")
+7. Assign an `onvalue(key, value)` callback function that
+updates your avatar's blend shape `key` (Oculus viseme name, e.g, "viseme_aa")
 to the given `value` in the range \[0,1].
 
 8. Call the node's `update` method inside your 3D animation
@@ -187,7 +185,7 @@ Event | Description
 `onvad(data)` |  VAD event `{ event: "vad", t, db, active, inactive }`. Requires `vadEventEnabled` to be `true`.
 `onfeature(data)` | Feature event `{ event: "feature", vector, t, d }`. Requires `featureEventEnabled` to be `true`.
 `onviseme(data)` | Viseme event `{ event: "viseme", viseme, t, d, vector, distances }`. Requires `visemeEventEnabled` to be `true`.
-`oncalibrated(data)` | Calibration event `{ event: "calibrated", t, \[error] }`.
+`oncalibrated(data)` | Calibration event `{ event: "calibrated", t, [error] }`.
 `onprocessorerror(event)` | Fired when an internal processor error occurs.
 
 ---
@@ -268,7 +266,7 @@ Coefficient (MFCC) feature vectors, Gaussian prototypes, and a
 [Mahalanobis distance](https://en.wikipedia.org/wiki/Mahalanobis_distance)
 classifier.
 
-SSince only the relative ordering of distances matters,
+Since only the relative ordering of distances matters,
 the squared Mahalanobis distance $d_M^2$ is used:
 
 $\displaystyle\qquad d_{M}^2 = (\vec{x} - \vec{\mu})^\top \Sigma^{-1} (\vec{x} - \vec{\mu})$

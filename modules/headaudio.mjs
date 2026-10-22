@@ -122,7 +122,7 @@ class HeadAudio extends AudioWorkletNode {
 
       case 'viseme':
         const viseme = data.viseme;
-        if ( viseme ) {
+        if ( Number.isInteger(viseme) ) {
           if ( viseme === PARAMS.MODEL_VISEME_SIL ) {
             this.visemeActive = -1;
           } else {

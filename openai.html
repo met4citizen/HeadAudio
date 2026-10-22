@@ -37,9 +37,9 @@
   <script type="importmap">
   { "imports":
     {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.180.0/build/three.module.js/+esm",
-      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.180.0/examples/jsm/",
-      "talkinghead": "https://cdn.jsdelivr.net/npm/@met4citizen/talkinghead@1.7/modules/talkinghead.mjs",
+      "three": "https://cdn.jsdelivr.net/npm/three@0.186/build/three.module.js/+esm",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186/examples/jsm/",
+      "talkinghead": "https://cdn.jsdelivr.net/npm/@met4citizen/talkinghead@1.8/modules/talkinghead.mjs",
       "headaudio": "./dist/headaudio.min.mjs"
     }
   }
@@ -72,7 +72,7 @@
     let micTrack; // Microphone audio track
 
     // OpenAPI realtime API
-    const model = "gpt-realtime-mini";
+    const model = "gpt-realtime-2.1-mini";
     const voice = "marin";
     const instructions = [
       "Your name is Julia. You are a clear, concise, and conversational English-speaking assistant.",
@@ -445,6 +445,13 @@
               voice: voice
             }
           },
+          truncation: {
+            type: "retention_ratio",
+            retention_ratio: 0.8,
+            token_limits: {
+              post_instructions: 8000
+            }
+          },
           tools: functions
         };
 
@@ -627,7 +634,7 @@
   </div>
   <div id="controls">
     <label id="label" for="apikey" disabled>OpenAI:</label>
-    <input id="apikey" name="apikey" type="text" placeholder="API Key" disabled/>
+    <input id="apikey" name="apikey" type="text" placeholder="Ephemeral API Key" disabled/>
     <input id="connection" type="button" value="Connect" disabled/>
   </div>
   <div id="github">

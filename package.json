@@ -1,6 +1,6 @@
 {
   "name": "@met4citizen/headaudio",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "An audio node/processor for real-time audio-driven viseme detection and lip-sync in browsers.",
   "type": "module",
   "main": "dist/headaudio.min.js",
@@ -31,9 +31,9 @@
   },
   "homepage": "https://github.com/met4citizen/HeadAudio#readme",
   "devDependencies": {
-    "jest": "^29.7.0",
-    "terser-webpack-plugin": "^5.3.14",
-    "webpack": "^5.102.1",
-    "webpack-cli": "^6.0.1"
+    "jest": "^30.5.2",
+    "terser-webpack-plugin": "^5.6.1",
+    "webpack": "^5.112.0",
+    "webpack-cli": "^7.2.3"
   }
 }
