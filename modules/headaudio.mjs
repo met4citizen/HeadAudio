@@ -22,6 +22,14 @@ class HeadAudio extends AudioWorkletNode {
 
     // Default values (for future use)
     const o = Object.assign({
+      visemeMinMs: 0,
+      visemeRampMs: 100,
+      visemeEasingSharpness: 5,
+      visemeMaxs: [
+        0.65, 0.65, 0.65, 0.65, 0.65,
+        0.75, 0.65, 0.65, 0.65, 0.75,
+        0.65, 0.65, 0.65, 0.65, 0.65
+      ]
     }, options || {});
 
     // NOTE: Always take mono in, no outputs
@@ -51,14 +59,13 @@ class HeadAudio extends AudioWorkletNode {
       'viseme_kk', 'viseme_nn', 'viseme_RR', 'viseme_CH', 'viseme_sil'
     ];
     this.nVisemes = this.visemeNames.length;
-    this.visemeMaxs = [
-      0.65, 0.65, 0.65, 0.65, 0.65,
-      0.75, 0.65, 0.65, 0.65, 0.75,
-      0.65, 0.65, 0.65, 0.65, 0.65
-    ];
+    this.visemeMaxs = o.visemeMaxs;
     this.visemeAlphas = new Array( this.nVisemes ).fill(0);
     this.visemeActive = -1;
-    this.easing = this.sigmoidFactory(5);
+    this.easing = this.sigmoidFactory( o.visemeEasingSharpness );
+    this.visemeMinMs = o.visemeMinMs;
+    this.visemeRampMs = o.visemeRampMs;
+    this._visemeSince = 0;
 
     // Class events
     this.onvalue = null;
@@ -123,10 +130,11 @@ class HeadAudio extends AudioWorkletNode {
       case 'viseme':
         const viseme = data.viseme;
         if ( Number.isInteger(viseme) ) {
-          if ( viseme === PARAMS.MODEL_VISEME_SIL ) {
-            this.visemeActive = -1;
-          } else {
-            this.visemeActive = viseme;
+          const next = viseme === PARAMS.MODEL_VISEME_SIL ? -1 : viseme;
+          const now = performance.now();
+          if ( next !== this.visemeActive && now - this._visemeSince >= this.visemeMinMs ) {
+            this.visemeActive = next;
+            this._visemeSince = now;
           }
         }
         if ( this.visemeEventsEnabled && this.onviseme && typeof this.onviseme === 'function' ) {
@@ -142,6 +150,7 @@ class HeadAudio extends AudioWorkletNode {
         
       case 'ended':
         this.visemeActive = -1;
+        this._visemeSince = 0;
         this.lastEndEvent = performance.now();
         if ( this.onended && typeof this.onended === 'function' ) {
           this.onended(data);
@@ -185,7 +194,7 @@ class HeadAudio extends AudioWorkletNode {
   * @param {number} dt Delta time in milliseconds.
   */
   update(dt) {
-    const da = dt / 100;
+    const da = dt / this.visemeRampMs;
 
     for( let i=0; i<this.nVisemes; i++ ) {
 

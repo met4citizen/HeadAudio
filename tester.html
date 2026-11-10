@@ -268,6 +268,7 @@
 
       // Create new HeadAudioNode
       headaudio = new HeadAudio(head.audioCtx, {
+        visemeMinMs: 120,
         processorOptions: {
           vadEventsEnabled: true,
           visemeEventsEnabled: true
@@ -384,8 +385,8 @@
         languages: ["en-us"], // Language to be pre-loaded
         voices: ["af_bella","am_fenrir"], // Voices to be pre-loaded
         audioCtx: head.audioCtx, // Share audio context with TalkingHead
-        workerModule: "https://cdn.jsdelivr.net/npm/@met4citizen/headtts@1.1/modules/worker-tts.mjs",
-        dictionaryURL: "https://cdn.jsdelivr.net/npm/@met4citizen/headtts@1.1/dictionaries/",
+        workerModule: "https://cdn.jsdelivr.net/npm/@met4citizen/headtts@1.3/modules/worker-tts.mjs",
+        dictionaryURL: "https://cdn.jsdelivr.net/npm/@met4citizen/headtts@1.3/dictionaries/",
         trace: 0,
       });
 
@@ -525,6 +526,18 @@
       };
       el.speakerMeanHz.addEventListener('ui-mixer-input', updateSpeakerMeanHz);
       el.speakerMeanHz.addEventListener('ui-mixer-change', updateSpeakerMeanHz);
+
+      const updateVisemeMinMs = () => {
+        headaudio.visemeMinMs = el.visemeMinMs.value;
+      };
+      el.visemeMinMs.addEventListener('ui-mixer-input', updateVisemeMinMs);
+      el.visemeMinMs.addEventListener('ui-mixer-change', updateVisemeMinMs);
+
+      const updateVisemeRampMs = () => {
+        headaudio.visemeRampMs = el.visemeRampMs.value;
+      };
+      el.visemeRampMs.addEventListener('ui-mixer-input', updateVisemeRampMs);
+      el.visemeRampMs.addEventListener('ui-mixer-change', updateVisemeRampMs);
 
       // Calibration
       el.calibrate.addEventListener('ui-mixer-click', () => {
@@ -744,6 +757,9 @@
         <ui-mixer-range id="silSensitivity" min="0" max="4" step="0.1" value="1.2"></ui-mixer-range>
         <ui-mixer-header>Speaker Mean</ui-mixer-header>
         <ui-mixer-range id="speakerMeanHz" min="50" max="500" step="10" value="150">Hz</ui-mixer-range>
+        <ui-mixer-header>Viseme Min / Ramp</ui-mixer-header>
+        <ui-mixer-range id="visemeMinMs" min="0" max="300" step="5" value="120">ms</ui-mixer-range>
+        <ui-mixer-range id="visemeRampMs" min="50" max="200" step="1" value="100">ms</ui-mixer-range>
       </div>
 
       <div class="mixer-track-3">

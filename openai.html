@@ -198,7 +198,9 @@
       await head.audioCtx.audioWorklet.addModule(headaudioProcessor);
 
       // Create the instance
-      headaudio = new HeadAudio(head.audioCtx);
+      headaudio = new HeadAudio(head.audioCtx,{
+        visemeMinMs: 120
+      });
       window.headaudio = headaudio; // For debugging
 
       // Load the audio model

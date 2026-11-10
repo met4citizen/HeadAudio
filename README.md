@@ -101,6 +101,7 @@ await head.audioCtx.audioWorklet.addModule("./modules/headworklet.mjs");
 
 // 3. Create new HeadAudio node
 const headaudio = new HeadAudio(head.audioCtx, {
+  visemeMinMs: 120,
   processorOptions: { },
   parameterData: {
     vadGateActiveDb: -40,
@@ -146,6 +147,17 @@ headaudio.onstarted = () => {
 See the test app
 [source code](https://github.com/met4citizen/HeadAudio/blob/main/tester.html)
 for more details.
+
+The supported `HeadAudio` options are:
+
+Option | Description | Default
+--- | --- | ---
+`visemeMinMs` | Minimum hold time for each viseme in milliseconds. Increasing this value reduces the frequency of viseme changes. | `120`
+`visemeRampMs` | Ramp duration in milliseconds. Increasing this value decreases the size of increments between blend shape updated. | `100`
+`visemeEasingSharpness` | Sharpness of the sigmoid easing function. | `5`
+`visemeMaxs` | Maximum bland shape values \[0,1] for each viseme, specified as an array. See Appendix A for the list of visemes. | `[ 0.65, 0.65, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.65, 0.65 ]`
+`processerOptions` | Processor options object. See table below. | `{}`
+`parameterData` | Audio parameters object. See table below. | `{}`
 
 The supported `processerOptions` are:
 
