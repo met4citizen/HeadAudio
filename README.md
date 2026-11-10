@@ -45,7 +45,7 @@ to be sacrificed to stay within the real-time processing budget.
 
 App | Description
 --- | ---
-[<img src="images/openai.jpg" width="200"/>](https://met4citizen.github.io/HeadAudio/openai.html) | A demo web app using HeadAudio, [TalkingHead](https://github.com/met4citizen/TalkingHead), and [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) (WebRTC). It supports speech-to-speech, moods, hand gestures, and facial expressions through function calling. \[[Run](https://met4citizen.github.io/HeadAudio/openai.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/openai.html)]<br/><br/>Note: The app uses OpenAI's [gpt-realtime-2.1-mini](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) model and requires an **Ephemeral OpenAI API key**. The "mini" model is a cost-effective version of GPT Realtime, but still relatively expensive for extended use.
+[<img src="images/openai.jpg" width="200"/>](https://met4citizen.github.io/HeadAudio/openai.html) | A demo web app using HeadAudio, [TalkingHead](https://github.com/met4citizen/TalkingHead), and [OpenAI Realtime API](https://platform.openai.com/docs/guides/realtime) (WebRTC). It supports speech-to-speech, moods, hand gestures, and facial expressions through function calling. \[[Run](https://met4citizen.github.io/HeadAudio/openai.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/openai.html)]<br/><br/>Note: The app uses OpenAI's [gpt-realtime-2.1-mini](https://developers.openai.com/api/docs/models/gpt-realtime-2.1-mini) model and requires an **Ephemeral OpenAI API key** (see Appendix D). The "mini" model is a cost-effective version of GPT Realtime, but still relatively expensive for extended use.
 [<img src="images/tester.jpg" width="200"/>](https://met4citizen.github.io/HeadAudio/tester.html) $$\color{transparent}{\rule{200px}{0px}}$$ | A test app for HeadAudio that lets you experiment with audio-stream processing and various parameters using [HeadTTS](https://met4citizen.github.io/HeadTTS) (in-browser neural text-to-speech engine), your own audio file(s), or microphone input. \[[Run](https://met4citizen.github.io/HeadAudio/tester.html)] \[[Code](https://github.com/met4citizen/HeadAudio/blob/main/tester.html)]
 
 ---
@@ -468,3 +468,26 @@ Distance matrix for `./dist/model-en-mixed.bin`:
 
 
 <sup>\[1]</sup> *Test/training setup: Macbook Air M2 laptop, 8 cores, 16GB memory, latest desktop Chrome browser.*
+
+---
+
+### Appendix D: Creating an Ephemeral API Key for the OpenAI Realtime API (Demo Only)
+
+The following example demonstrates how to create an ephemeral API token (client secret) using `curl`:
+
+```bash
+curl -X POST https://api.openai.com/v1/realtime/client_secrets \
+  -H "Authorization: Bearer $OPENAI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "session": {
+      "type": "realtime",
+      "model": "gpt-realtime-2.1-mini"
+    },
+    "expires_after": {
+      "anchor": "created_at",
+      "seconds": 600
+    }
+  }'
+```
+
