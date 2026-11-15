@@ -1,6 +1,6 @@
 {
   "name": "@met4citizen/headaudio",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "An audio node/processor for real-time audio-driven viseme detection and lip-sync in browsers.",
   "type": "module",
   "main": "dist/headaudio.min.js",
