@@ -452,7 +452,8 @@
       const defaultSilMode = el.silMode.checked ? 1 : 0;
       const defaultSilCalibrationWindowSec = el.silCalibrationWindowSec.value;
       const defaultSilSensitivity = el.silSensitivity.value;
-      const defaultSpeakerMeanHz = el.speakerMeanHz.value;
+      const defaultVisemeMinMs = el.visemeMinMs.value;
+      const defaultVisemeRampMs = el.visemeRampMs.value;
 
       // Adjust Head Audio parameters
       headaudio.parameters.get("vadMode").value = defaultVadMode;
@@ -519,14 +520,6 @@
       el.silSensitivity.addEventListener('ui-mixer-input', updateSilSensitivity);
       el.silSensitivity.addEventListener('ui-mixer-change', updateSilSensitivity);
 
-      headaudio.parameters.get("speakerMeanHz").value = defaultSpeakerMeanHz;
-      const updateSpeakerMeanHz = () => {
-        const val = el.speakerMeanHz.value;
-        headaudio.parameters.get("speakerMeanHz").value = val;
-      };
-      el.speakerMeanHz.addEventListener('ui-mixer-input', updateSpeakerMeanHz);
-      el.speakerMeanHz.addEventListener('ui-mixer-change', updateSpeakerMeanHz);
-
       const updateVisemeMinMs = () => {
         headaudio.visemeMinMs = el.visemeMinMs.value;
       };
@@ -564,8 +557,10 @@
         updateSilCalibrationWindowSec();
         el.silSensitivity.value = defaultSilSensitivity;
         updateSilSensitivity();
-        el.speakerMeanHz.value = defaultSpeakerMeanHz;
-        updateSpeakerMeanHz();
+        el.visemeMinMs.value = defaultVisemeMinMs;
+        updateVisemeMinMs();
+        el.visemeRampMs.value = defaultVisemeRampMs;
+        updateVisemeRampMs();
       });
 
       // Speak when clicked
@@ -755,8 +750,6 @@
         <ui-mixer-header>SIL Window / Sensitivity</ui-mixer-header>
         <ui-mixer-range id="silCalibrationWindowSec" min="0.1" max="10" step="0.1" value="3.0">sec</ui-mixer-range>
         <ui-mixer-range id="silSensitivity" min="0" max="4" step="0.1" value="1.2"></ui-mixer-range>
-        <ui-mixer-header>Speaker Mean</ui-mixer-header>
-        <ui-mixer-range id="speakerMeanHz" min="50" max="500" step="10" value="150">Hz</ui-mixer-range>
         <ui-mixer-header>Viseme Min / Ramp</ui-mixer-header>
         <ui-mixer-range id="visemeMinMs" min="0" max="300" step="5" value="120">ms</ui-mixer-range>
         <ui-mixer-range id="visemeRampMs" min="50" max="200" step="1" value="100">ms</ui-mixer-range>

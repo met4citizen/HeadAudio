@@ -152,10 +152,10 @@ The supported `HeadAudio` options are:
 
 Option | Description | Default
 --- | --- | ---
-`visemeMinMs` | Minimum hold time for each viseme in milliseconds. Increasing this value reduces the frequency of viseme changes. | `120`
+`visemeMinMs` | Minimum hold time for each viseme in milliseconds. Increasing this value reduces the frequency of viseme changes. Set value to `0` to disable. | `120`
 `visemeRampMs` | Ramp duration in milliseconds. Increasing this value decreases the size of increments between blend shape updated. | `100`
 `visemeEasingSharpness` | Sharpness of the sigmoid easing function. | `5`
-`visemeMaxs` | Maximum bland shape values \[0,1] for each viseme, specified as an array. See Appendix A for the list of visemes. | `[ 0.65, 0.65, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.65, 0.65 ]`
+`visemeMaxs` | Maximum blend shape values \[0,1] for each viseme, specified as an array. See Appendix A for the list of visemes. | `[ 0.65, 0.65, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.65, 0.65 ]`
 `processerOptions` | Processor options object. See table below. | `{}`
 `parameterData` | Audio parameters object. See table below. | `{}`
 
@@ -180,7 +180,7 @@ Parameter | Description | Default
 `silMode` | `0` = Disabled, `1` = Manual calibration, `2` = Auto (NOT IMPLEMENTED). If disabled, only trained SIL prototypes are used. In manual mode, the app must perform silence calibration. Auto mode is currently not implemented. | `1`
 `silCalibrationWindowSec` | Silence-calibration window in seconds. | `3.0`
 `silSensitivity` | Sensitivity to silence. | `1.2`
-`speakerMeanHz` | Estimated speaker mean frequency in Hz [50–500]. Adjusting this gently stretches/compresses the Mel spacing and frequency range to better match the speaker’s vocal-tract resonances and harmonic structure. Typical values: adult male 100–130, adult female 200–250, child 300–400. EXPERIMENTAL | `150`
+`speakerMeanHz` | DEPRECATED. Estimated speaker mean frequency in Hz [50–500]. Adjusting this gently stretches/compresses the Mel spacing and frequency range to better match the speaker’s vocal-tract resonances and harmonic structure. Typical values: adult male 100–130, adult female 200–250, child 300–400. EXPERIMENTAL | `150`
 
 > [!TIP]
 > All audio parameters can be changed in real-time,
