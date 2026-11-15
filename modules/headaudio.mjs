@@ -22,7 +22,7 @@ class HeadAudio extends AudioWorkletNode {
 
     // Default values (for future use)
     const o = Object.assign({
-      visemeMinMs: 0,
+      visemeMinMs: 120,
       visemeRampMs: 100,
       visemeEasingSharpness: 5,
       visemeMaxs: [
