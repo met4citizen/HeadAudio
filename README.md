@@ -156,10 +156,10 @@ Option | Description | Default
 `visemeRampMs` | Ramp duration in milliseconds. Increasing this value decreases the size of increments between blend shape updated. | `100`
 `visemeEasingSharpness` | Sharpness of the sigmoid easing function. | `5`
 `visemeMaxs` | Maximum blend shape values \[0,1] for each viseme, specified as an array. See Appendix A for the list of visemes. | `[ 0.65, 0.65, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.75, 0.65, 0.65, 0.65, 0.65, 0.65 ]`
-`processerOptions` | Processor options object. See table below. | `{}`
+`processorOptions` | Processor options object. See table below. | `{}`
 `parameterData` | Audio parameters object. See table below. | `{}`
 
-The supported `processerOptions` are:
+The supported `processorOptions` are:
 
 Option | Description | Default
 --- | --- | ---
